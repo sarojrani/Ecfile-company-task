@@ -1,6 +1,7 @@
 # backend task
 // run process
 1-go to backend folder
+2-run npm i and npm install nodemon  express
 2 use-npm start for run the command
 
 # for sending link 

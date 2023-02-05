@@ -178,12 +178,17 @@ const userSignin = async (req, res) => {
    
 
     const createUser = await userModel.create(userData);
-
+  if(createUser){
+    
     res.status(201).send({
       status: true,
-      message: `User registered successfully`,
+      message: `User registered successfully please varify your email`,
       data: createUser,
     });
+  }
+  else{
+    return res.status(400).send({status:false,msg:"your registration have been failed"})
+  }
  
   } catch (error) {
     res.status(500).send({ status: false, message: error.message });
@@ -260,7 +265,7 @@ const loginUser = async function (req, res) {
 const sendVerifyEmail=async(req,res)=>{
   try{
     var name=req.body.name;
-    var email=req.body.email;
+    const email=req.body.email;
     let userId = req.params.userId
     if (!isValidObjectId(userId)) {
         return res.status(400).send({ status: false, message: "Please enter a valid user Id" })
@@ -271,17 +276,17 @@ const transporter=nodemailer.createTransport({
   requireTLS:true,
   auth:{
     //use author emailid as user here i put demoemailid
-    user:"mailto:john@example.com",
+    user:"sarojkumirani345@gmail.com",
     //use password which you can give app password(follow-go to google account-signin-select security-goto app password-generate-get-password) i used as demo
-    pass:'ixvaixkthpwnqajn',
+    pass:'ixvaixkthpwgqzjn',
   }
 })
 
 const mailOptions={
   from:"sarojkumarirani345@gmail.com",
-  to:email,
+  to:"john@example.com",
   subject:'for email otp verification',
-  html:'<p> Hii '+`${name}`+',please click here to <a href="http://localhost:3000/verify">varify </a> your '+`${email}`+''
+  html:'<p> Hii '+name+',please click here to <a href="http://localhost:3000/verify">varify </a> your email.'
 }
 transporter.sendMail(mailOptions,function(err,info){
   if(err){
@@ -300,7 +305,7 @@ return res.status(200).send({status:true,msg:"email-varified"})
 }
 }
 catch(err){
-  return res.status(400).send({status:false,msg:err.message})
+  return res.status(500).send({status:false,msg:err.message})
 }
 }
 
