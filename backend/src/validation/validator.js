@@ -16,13 +16,13 @@ const isValidPassword = (password) => {
   if (password.length >4 && password.length < 16) return true
 }
 //validation for aws
-// const isValidFiles = (files) => {
-//   if (files && files.length > 0) return true
-// }
+const isValidFiles = (files) => {
+  if (files && files.length > 0) return true
+}
 
 //to check validation of objectId
 const isValidObjectId = (objectId) => {
   return mongoose.isValidObjectId(objectId)
 }
 
-module.exports = {isValid,isValidObjectId,isValidRequestBody,isValidPassword}
+module.exports = {isValid,isValidObjectId,isValidRequestBody,isValidPassword,isValidFiles}
